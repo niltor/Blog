@@ -1,0 +1,118 @@
+@model OpentoTop.Models.Blogs
+@{
+    ViewData["description"] = Html.Raw(Model.Description);
+    ViewData["Title"] = Html.Raw(Model.Title);
+}
+
+@section Css{
+    <link rel="stylesheet" href="~/css/editormd.css">
+}
+<div class="container" style="padding:0">
+    <div class="col-md-8 col-xs-12" style="padding:0;">
+        <div class="view-detail-title">
+            @Model.Title
+        </div>
+
+        <div class="view-detail-sectitle">
+            <span class="view-datetime">
+                @{
+                    var createTime = String.Format("{0:yyyy-MM-dd HH:mm}", Model.CreateTime);
+                }
+                @createTime
+            </span>
+            on
+            <span class="view-type">
+                @Model.Type
+            </span>
+            by <span class="view-author">@Model.Author</span>
+
+            <span> (@Model.ViewNum)</span>
+        </div>
+        <hr>
+        <div id="content" style="display: none;">@Model.Content</div>
+
+        <div class="view-detail-content" id="mk-content">
+        </div>
+    </div>
+
+    <div class="col-md-3 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                问题交流
+            </div>
+            <div class="panel-body">
+                <span class="text">
+                    如果你对文章有任何疑问或见解，欢迎加入QQ群交流:
+                </span>
+                <strong>255205857</strong>
+                <br />
+                或直接点击：
+                <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=d470deee60dab408cf3794e349c7e8281c23a2f978c402520aa5b76910d2c2cb"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="极客编程交流群" title="极客编程交流群"></a>
+
+                <hr />
+                <span>或发送邮件:</span>
+                <span class="text-primary">
+                    <a href="mailto:geethin@outlook.com">geethin@outlook.com</a>
+                </span>
+                <br />
+                我会及时回复!
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- JiaThis Button BEGIN -->
+            <div class="jiathis_style">
+                <span class="jiathis_txt">分享到：</span>
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a class="jiathis_button_cqq"></a>
+                <a class="jiathis_button_ydnote"></a>
+                <a href="http://www.jiathis.com/share?uid=1747420" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+                <a class="jiathis_counter_style"></a>
+            </div>
+            <script type="text/javascript">
+                var jiathis_config = {
+                    data_track_clickback: true,
+                    summary: "",
+                    shortUrl: true,
+                    hideMore: true
+                }
+            </script>
+            <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1747420" charset="utf-8"></script>
+            <!-- JiaThis Button END -->
+
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_EditorMD");}
+    <script>
+
+        $(document).ready(function () {
+            initMarkdown();
+
+        });
+        function initMarkdown() {
+            var content = $("#content").html();
+            content = content.replace(/&gt;/g, '>');
+            content = content.replace(/&lt;/g, '<');
+            console.log(content);
+            testEditormdView = editormd.markdownToHTML("mk-content", {
+                markdown: content,//+ "\r\n" + $("#append-test").text(),
+                //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                codeFold: true,
+                htmlDecode: "style,script",  // you can filter tags decode
+                //toc             : false,
+                tocm: true,    // Using [TOCM]
+                tex: true,  // 默认不解析
+                flowChart: true,  // 默认不解析
+                sequenceDiagram: true  // 默认不解析
+            });
+
+        }
+    </script>
+}

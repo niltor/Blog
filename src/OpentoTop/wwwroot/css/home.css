@@ -1,0 +1,154 @@
+.footer {
+	margin-bottom: 4px;
+	font-weight: bold;
+}
+
+.navbar-inverse {
+	background: #0069ce;
+	border-color: #0069ce;
+}
+.navbar-inverse li:hover{
+background:#225bb5;
+}
+	.navbar-inverse .navbar-nav > li > a {
+		color: white;
+	}
+
+	.navbar-inverse .navbar-brand {
+		color: white;
+	}
+
+.news-row {
+	margin: 8px auto;
+	padding: 4px 0;
+}
+
+.news-title {
+	font-size: 1.8rem;
+	margin: 2px auto;
+	font-family:  'Segoe UI', 'Microsoft Yahei', Tahoma, Arial, Helvetica, sans-serif;
+}
+
+	.news-title a {
+		color: #1a0dab;
+		/*text-shadow: 1px 0 0 #67a6ce;*/
+	}
+
+.news-description {
+	margin: 4px auto;
+	font-size: 1.4rem;
+	color: #5c5c5c;
+}
+
+.news-datetime {
+	font-family: Consolas, sans-serif;
+	color: #5C5C5C;
+}
+
+.news-types {
+	margin-top: 10px;
+	font-size: 18px;
+	font-family: "Microsoft YaHei";
+	padding-bottom: 5px;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+	.news-types a {
+		color: #0e0e0e;
+	}
+
+.news-types-sep {
+	color: #ececec;
+	margin: 0 4px;
+}
+
+
+.view-row {
+	margin-bottom: 16px;
+	padding: 0 8px;
+	border-left: 4px solid #2f77db;
+}
+
+.view-title {
+	font-size: 1.7rem;
+	font-family:  'Segoe UI', 'Microsoft Yahei', Tahoma, Arial, Helvetica, sans-serif;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+	.view-title a {
+		color: #111;
+		/*text-shadow: 1px 0 0 #67a6ce;*/
+	}
+
+.view-sectitle {
+	font-family: Consolas, sans-serif;
+	color: #8f8f8f;
+	font-size: 1.3rem;
+}
+
+.view-author {
+	color: #124eb5;
+}
+
+.view-type {
+	color: #124eb5;
+}
+
+.view-description {
+	margin: 4px auto;
+	font-size: 1.3rem;
+	color: #606060;
+}
+
+.view-detail-title {
+	text-align: center;
+	font-size: 2.5rem;
+	margin: 8px auto;
+}
+
+.view-detail-sectitle {
+	color: #5C5C5C;
+	font-size: 1.3rem;
+}
+
+.view-detail-content {
+	margin: 4px 0;
+	padding: 10px 8px !important;
+	font-size: 16px;
+}
+
+hr {
+	margin: 4px 0;
+}
+
+.nav-blogtype {
+	margin: auto;
+	border: 1px solid #2c70ba;
+	padding: 0;
+	list-style-type: none;
+}
+
+	.nav-blogtype li:first-child {
+		background: #1f6ec4;
+		color: white;
+	}
+
+	.nav-blogtype:last-child {
+		border-bottom: none;
+	}
+
+	.nav-blogtype li {
+		padding: 4px;
+		width: 100%;
+		border-bottom: 1px solid #2c77ba;
+		cursor: pointer;
+	}
+
+		.nav-blogtype li:hover {
+			background: #C6E2EE;
+		}
+
+		.nav-blogtype li a {
+			text-decoration: none;
+		}

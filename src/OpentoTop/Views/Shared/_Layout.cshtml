@@ -1,0 +1,76 @@
+﻿@using OpentoTop.Data
+@inject ApplicationDbContext context;
+
+@{
+	var navs = context.Modules.OrderBy(m => m.Rank).ToList();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="keywords" content=@Html.Raw(ViewData["keywords"])>
+	<meta name="description" content=@Html.Raw(ViewData["description"])>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>@ViewData["Title"] - Blog</title>
+	<environment names="Development">
+		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="~/css/site.css" />
+		<link rel="stylesheet" href="~/css/home.css" />
+	</environment>
+	<environment names="Staging,Production">
+		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+	</environment>
+	@RenderSection("css", required: false)
+</head>
+<body style="margin-top:50px">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a asp-controller="Home" asp-action="Index" class="navbar-brand">Home</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					@foreach (var item in navs)
+					{
+						<li><a href="/@item.Url">@item.Name</a></li>
+					}
+				</ul>
+				@await Html.PartialAsync("_LoginPartial")
+			</div>
+		</div>
+	</div>
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+		<footer>
+			<span class="pull-left">
+				&copy; 2016 - MSDev.cc
+			</span>
+			<span class="pull-right">
+				powered by <a href="http://www.msdev.cc" target="_blank">MSDev.cc</a>
+				
+			</span>
+		</footer>
+	</div>
+
+	<environment names="Development">
+		<script src="~/lib/jquery/dist/jquery.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="~/js/site.js" asp-append-version="true"></script>
+	</environment>
+	<environment names="Staging,Production">
+		<script src="~/lib/jquery/dist/jquery.js"></script>
+		<script src="~/js/site.min.js" asp-append-version="true"></script>
+	</environment>
+
+	@RenderSection("scripts", required: false)
+</body>
+</html>

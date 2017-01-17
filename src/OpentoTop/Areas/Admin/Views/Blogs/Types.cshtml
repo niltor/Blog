@@ -1,0 +1,54 @@
+﻿@using OpentoTop.Models
+@{
+    ViewData["Title"] = "类别管理";
+}
+
+
+<div class="col-md-12">
+    <h3>分类管理</h3>
+    <form asp-action="AddBlogType" class="form-inline">
+        <div class="form-group">
+            所属模块:
+            <select name="ModulesId" class="form-control">
+                @foreach (var item in ViewBag.Modules as IEnumerable<Modules>)
+            {
+                    <option value="@item.ModulesId">@item.Name</option>
+                }
+            </select>
+            <input type="text" value="" name="Name" class="form-control"
+                   placeholder="分类名称" />
+
+            <button type="submit" class="btn btn-primary">添加</button>
+        </div>
+
+
+    </form>
+</div>
+<div class="clearfix"></div>
+<hr />
+<div class="well col-md-12">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.BlogTypes as IEnumerable<BlogTypes>)
+            {
+                <tr>
+                    <td>@item.BlogTypeId</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <a asp-action="DelBlogType" asp-route-id="@item.BlogTypeId" class="btn btn-sm btn-danger">删</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+

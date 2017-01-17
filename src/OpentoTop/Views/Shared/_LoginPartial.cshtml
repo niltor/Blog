@@ -1,0 +1,45 @@
+@using Microsoft.AspNetCore.Identity
+@using OpentoTop.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+	ApplicationUser LoginUser = await UserManager.GetUserAsync(User);	
+}
+@if(SignInManager.IsSignedIn(User))
+{
+	<form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="dropdownUser">
+					@LoginUser.NickName
+					<span class="caret"></span>
+				</a>
+				@if(await UserManager.IsInRoleAsync(LoginUser,"Author"))
+				{
+				<ul class="dropdown-menu" aria-labelledby="dropdownUser">
+					<li><a asp-controller="Blogs" asp-action="myblogs">我的博文</a></li>
+					<li><a asp-controller="Blogs" asp-action="write">撰写</a></li>
+				</ul>
+				}  
+                @if (await UserManager.IsInRoleAsync(LoginUser, "Admin"))
+                {
+                    <ul class="dropdown-menu" aria-labelledby="dropdownUser">
+                        <li><a asp-controller="manage" asp-area="Admin">管理后台</a></li>
+                       
+                    </ul>
+                }
+			</li>
+			<li>
+				<button type="submit" class="btn btn-link navbar-btn navbar-link">登出</button>
+			</li>
+		</ul>
+	</form>
+} else
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li><a asp-controller="Account" asp-action="Register">注册</a></li>
+		<li><a asp-controller="Account" asp-action="Login">登录</a></li>
+	</ul>
+}

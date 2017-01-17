@@ -1,0 +1,62 @@
+@model IEnumerable<OpentoTop.Models.Blogs>
+
+@{
+    ViewData["Title"] = "博文";
+}
+
+<div class="container">
+    <h2>博文列表</h2>
+    <p>
+        <a asp-action="Write">撰写博文</a>
+    </p>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdateTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a target="Blogs" asp-action="Details" asp-area="" asp-route-id="@item.BlogId">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdateTime)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.BlogId">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.BlogId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

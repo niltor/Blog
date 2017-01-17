@@ -1,0 +1,133 @@
+@model OpentoTop.Models.Blogs
+@{
+    Layout = "_LayoutWithoutNav";
+    ViewData["Title"] = "编辑博文";
+}
+@section Css{
+    <link rel="stylesheet" href="~/css/editormd.css">
+}
+<div class="container-fluid" style="padding:0">
+    <form asp-action="Edit">
+        <div class="write-left">
+            <input type="hidden" name="BlogId" value="@Model.BlogId">
+            <select name="type" class="form-control write-type">
+                <option value="科技视角">科技视角</option>
+                <option value="独立评论">独立评论</option>
+                <option value="技术分享">技术分享</option>
+                <option value="站内新闻">站内新闻</option>
+            </select>
+
+            <input type="text" class="write-title form-control" name="title"
+                   placeholder="标题" tabindex="1" value="@Model.Title">
+            <textarea name="description" id="" class="write-description form-control"
+                      placeholder="核心观点..." tabindex="2">@Model.Description</textarea>
+                <div class="write-button">
+                    <button class="btn btn-warning pull-left" id="return-unsave" tabindex="-1">返回</button>
+                    <button class="btn btn-primary pull-right" id="return-save" tabindex="-1">保存</button>
+                </div>
+            </div>
+            <div class="write-right">
+                <div id="content" style="display: none;">@Model.Content</div>
+                <div class="mk-writer">
+                    <div id="mk-content"></div>
+                </div>
+            </div>
+
+    </form>
+   
+
+    <hr />
+    <footer class="body-content">
+        <span class="pull-left">
+            &copy; 2016 - Geeker.tech
+        </span>
+        <span class="pull-right">
+            powered by geeker.tech
+        </span>
+    </footer>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_EditorMD");}
+<script>
+
+    var testEditor;
+    $(document).ready(function () {
+        var content = $("#content").html();
+        content = content.replace(/&gt;/g, '>');
+        content = content.replace(/&lt;/g, '<');
+        console.log(content);
+        bind();
+        initMarkdown(content);
+    });
+
+    function bind() {
+        $("#return-save").on('click', '', function (event) {
+            event.preventDefault();
+            var params = getValues();
+            params['content'] = params['mk-content'];
+            params['attribute'] = params['table-align'];
+            delete params['mk-content-html-code'];
+            delete params['mk-content'];
+            delete params['table-align'];
+            console.log(params);
+            var re = postRequest('/Admin/Blogs/Edit', params);
+        });
+
+        $("#return-unsave").on('click', '', function (event) {
+            event.preventDefault();
+            location.href = "/Admin/Blogs/Index";
+        });
+    }
+
+    function initMarkdown(content) {
+        testEditor = editormd("mk-content", {
+            name: "mk-content",
+            placeholder: "使用markdown开始创作",
+            width: "100%",
+            height: 740,
+            path: '/lib/',
+            theme: "default",
+            previewTheme: "default",
+            editorTheme: "neat",
+            markdown: content,
+            codeFold: true,
+            //syncScrolling : false,
+            saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+            searchReplace: true,
+            //watch : false,                // 关闭实时预览
+            //toolbar  : false,             //关闭工具栏
+            toolbarIcons: "opento",
+            toolbarIconsClass: {},
+            //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+            emoji: true,
+            taskList: true,
+            tocm: true,         // Using [TOCM]
+            tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart: true,             // 开启流程图支持，默认关闭
+            sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "./php/upload.php",
+            onload: function () {
+                console.log('onload', this);
+                //this.fullscreen();
+                //this.unwatch();
+                //this.watch().fullscreen();
+
+                //this.setMarkdown("#PHP");
+                //this.width("100%");
+                //this.height(480);
+                //this.resize("100%", 640);
+            }
+        });
+    }
+</script>
+}

@@ -1,0 +1,68 @@
+@model IEnumerable<OpentoTop.Models.Blogs>
+@addTagHelper "*,OpentoTop"
+@using OpentoTop.TagHelpers
+@{
+	ViewData["Title"] = "我的博文";
+}
+
+<h2>博文列表</h2>
+<p>
+	<a asp-action="Write">撰写博文</a>
+</p>
+<table class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Title)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Author)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Type)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CreateTime)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.UpdateTime)
+			</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+		<tr>
+			<td>
+				<a asp-action="Details" asp-route-id="@item.BlogId">
+					@item.Title
+				</a>
+			</td>
+			<td>
+				@item.Author
+			</td>
+			<td>
+				@item.Type
+			</td>
+			<td>
+				@item.CreateTime
+			</td>
+			<td>
+				@item.UpdateTime
+			</td>
+			<td>
+				<a asp-action="Edit" asp-route-id="@item.BlogId"
+				   class="label label-default">Edit</a>
+				<a asp-action="Delete" asp-route-id="@item.BlogId"
+				   class="label label-danger">Del</a>
+
+			</td>
+		</tr>
+		}
+	</tbody>
+
+</table>
+<div class="text-center">
+	<pager pager-option="ViewBag.PagerOption as MyPagerOption"></pager>
+</div>

@@ -1,0 +1,83 @@
+@using OpentoTop.Models
+@{
+    ViewData["Title"] = "极客科技";
+}
+<div class="row">
+    <div class="col-md-7 col-xs-12">
+        <div class="news-types">
+            @foreach (var item in ViewBag.NewsType as IEnumerable<string>)
+            {
+                <a asp-route-type="@item">@item</a>
+                <span class="news-types-sep">/</span>
+            }
+            &nbsp;&nbsp;
+            <small>
+                <a asp-controller="news" asp-action="getnews" style="color:#555555">刷新</a>
+            </small>
+        </div>
+        <div class="news-list">
+            @foreach (var item in ViewBag.News as IEnumerable<News>)
+            {
+                <div class="news-row">
+                    <div class="news-title">
+                        <a href="@item.Url" target="_blank">
+                            @item.Title
+                        </a>
+                    </div>
+                    <div class="news-datetime">
+                        @item.DateTime
+                    </div>
+                    <div class="news-description">
+                        @item.Description
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <div class="col-md-4 view-list pull-right col-md-offset-1">
+        <h4>
+            最新博文
+        </h4>
+
+        @foreach (var item in ViewBag.NewBlogs as IEnumerable<Blogs>)
+        {
+            <div class="view-row">
+                <div class="view-title">
+                    <a asp-controller="Blogs" asp-action="Details" asp-route-id="@item.BlogId" target="_blank">@item.Title</a>
+                </div>
+                <div class="view-sectitle">
+                    <span class="view-datetime">
+                        @String.Format("{0:yyyy-MM-dd HH:mm}", item.CreateTime)
+
+                    </span>
+                    <span class="view-author">@item.Author</span>
+                    <span> (@item.ViewNum)</span>
+                </div>
+            </div>}
+    </div>
+
+    @*<div class="col-md-5">
+            <h4>
+                最新提问
+            </h4>
+            @foreach (var item in ViewBag.NewIssues as IEnumerable<Issues>)
+            {
+            <div class="view-row" style="border-left:4px solid  #0ea50e">
+                <div class="view-title">
+                    <a asp-controller="Issues" asp-route-id="@item.IssueId" target="_blank">@item.Title</a>
+
+                </div>
+                <div class="view-sectitle">
+                    <span class="view-datetime">
+                        @String.Format("{0:yyyy-MM-dd HH:mm}", item.CreateTime)
+
+                    </span>
+                    <span class="view-author">@item.User</span>
+                </div>
+            </div>
+            }
+
+        </div>*@
+</div>

@@ -1,0 +1,161 @@
+@using OpentoTop.Models
+@{
+    Layout = "_LayoutWithoutNav";
+    ViewData["Title"] = "撰写博文";
+}
+@section Css{
+    <link rel="stylesheet" href="~/css/editormd.css">
+}
+<div class="container-fluid" style="padding:0">
+    <form asp-action="Write">
+        <div class="write-left">
+            <select name="Type" class="form-control write-type">
+
+                @foreach (var item in ViewBag.BlogTypes)
+                {
+                    <option value="@item.Modules.ModulesId:@item.Name">
+                        @item.Modules.Name:@item.Name
+                    </option>
+                }
+            </select>
+
+            <input type="text" class="write-title form-control" name="Title"
+                   placeholder="标题" tabindex="1">
+            <textarea name="Description" id="" class="write-description form-control"
+                      placeholder="核心观点..." tabindex="2"></textarea>
+            <div class="write-button">
+                <button class="btn btn-warning pull-left" id="return-unsave" tabindex="-1">返回</button>
+                <button class="btn btn-success pull-right" id="return-publish" tabindex="-1">发布</button>
+                <button class="btn btn-primary pull-right" id="return-save" tabindex="-1">保存</button>
+                
+            </div>
+        </div>
+        <div class="write-right">
+            <div class="mk-writer">
+                <div id="mk-content"></div>
+            </div>
+        </div>
+    </form>
+    <hr />
+    <footer class="body-content">
+        <span class="pull-left">
+            &copy; 2016 - GeekerTech
+        </span>
+        <span class="pull-right">
+            powered by geeker.tech
+        </span>
+    </footer>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_EditorMD");}
+
+    <script>
+        var testEditor;
+        $(document).ready(function () {
+            bind();
+            initMarkdown();
+        });
+
+        function bind() {
+            $("#return-save").on('click', '', function (event) {
+                event.preventDefault();
+                var params = getValues();
+                params['Content'] = params['mk-content'];
+                params['Attribute'] = params['table-align'] == null ? "" : params['table-align'];
+
+                var types = params['Type'].split(":");
+
+                params['Type'] = types[1];
+                params['ModuleId'] = types[0];
+                params['Status'] = "1";
+
+                delete params['mk-content-html-code'];
+                delete params['mk-content'];
+                delete params['table-align'];
+
+                console.log(params);
+                var re = postRequest('/Blogs/Write', params);
+            });
+
+            $("#return-publish").on('click', '', function (event) {
+                event.preventDefault();
+                var params = getValues();
+                params['Content'] = params['mk-content'];
+                params['Attribute'] = params['table-align'] == null ? "" : params['table-align'];
+
+                var types = params['Type'].split(":");
+
+                params['Type'] = types[1];
+                params['ModuleId'] = types[0];
+                params['Status'] = "2";
+
+                delete params['mk-content-html-code'];
+                delete params['mk-content'];
+                delete params['table-align'];
+
+                console.log(params);
+                var re = postRequest('/Blogs/Write', params);
+            });
+
+
+
+            $("#return-unsave").on('click', '', function (event) {
+                event.preventDefault();
+                location.href = "/Blogs/myblogs";
+            });
+        }
+
+        function initMarkdown() {
+            testEditor = editormd("mk-content", {
+                name: "mk-content",
+
+                placeholder: "使用markdown开始创作",
+                width: "100%",
+                height: 940,
+                path: '/lib/',
+                theme: "default",
+                previewTheme: "default",
+                editorTheme: "neat",
+                markdown: "",
+                codeFold: true,
+                //syncScrolling : false,
+                saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                searchReplace: true,
+                //watch : false,                // 关闭实时预览
+                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+                //toolbar  : false,             //关闭工具栏
+                toolbarIcons: "opento",
+                toolbarIconsClass: {},
+                //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+                emoji: true,
+                taskList: true,
+                tocm: true,         // Using [TOCM]
+                tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,             // 开启流程图支持，默认关闭
+                sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+                //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/blogs/upload",
+                onload: function () {
+                    console.log('onload', this);
+                    //this.fullscreen();
+                    //this.unwatch();
+                    //this.watch().fullscreen();
+
+                    //this.setMarkdown("#PHP");
+                    //this.width("100%");
+                    //this.height(480);
+                    //this.resize("100%", 640);
+                }
+            });
+        }
+    </script>
+}

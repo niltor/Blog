@@ -1,0 +1,75 @@
+@using OpentoTop.Models
+@model IEnumerable<Blogs>
+@addTagHelper "*,OpentoTop"
+@using OpentoTop.TagHelpers
+
+@{
+	ViewData["Title"] = @ViewBag.ModuleName;
+}
+<div class="row" style="padding:8px 0">
+	<div class="col-md-7 view-list">
+		@foreach (var item in Model)
+		{
+		<div class="view-row">
+			<div class="view-title">
+				<a asp-action="Details" asp-route-id="@item.BlogId" target="_blank">@item.Title</a>
+			</div>
+			<div class="view-sectitle">
+				<span class="view-datetime">
+					@String.Format("{0:yyyy-MM-dd HH:mm}", item.CreateTime)
+
+				</span>
+				on
+				<span class="view-type">
+					@item.Type
+				</span>
+				by <span class="view-author">@item.Author</span>
+
+				<span> (@item.ViewNum)</span>
+
+			</div>
+
+			<div class="view-description">
+				@item.Description
+			</div>
+
+		</div>
+		}
+
+		<pager pager-option="ViewBag.PagerOption as MyPagerOption"></pager>
+	</div>
+
+	<div class="col-md-2">
+		@{if (ViewBag.BlogTypes.Count <= 0)
+			{
+				
+			}
+			else
+			{
+		<ul class="nav-blogtype">
+			<li>
+				<span>分类：</span>
+			</li>
+			@foreach (var item in ViewBag.BlogTypes as IEnumerable<BlogTypes>)
+			{
+			<li>
+				<a asp-route-type="@item.Name" asp-route="common">@item.Name</a>
+			</li>
+
+			}
+
+		</ul>
+
+		<hr />
+
+		<span class="text-primary">QQ交流群:</span>	<strong>255205857</strong>
+		<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=d470deee60dab408cf3794e349c7e8281c23a2f978c402520aa5b76910d2c2cb">
+			<img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="极客编程交流群" title="极客编程交流群">
+		</a>
+
+				}
+
+			}
+
+	</div>
+</div>

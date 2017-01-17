@@ -1,0 +1,70 @@
+﻿@model IEnumerable<OpentoTop.Models.Modules>
+
+<div class="row">
+    <div class="pull-left">
+        <div class="col-md-12 well well-sm">
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="">导航设置</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="pull-left">
+        <div class="col-md-12">
+            @*导航设置页面*@
+            <section class="well" id="setting-nav">
+                @* add menu *@
+                <div class="row">
+                    <form class="form-inline" asp-action="addNav">
+                        <strong>添加导航:</strong>
+
+                        <div class="form-group">
+                            <input type="number" value="" class="form-control" name="Rank"
+                                    placeholder="排序"/>
+                            <input type="text" value="" class="form-control" name="Name"
+                                    placeholder="导航名称"  />
+                            <input type="text" value="" class="form-control" name="Url"
+                                   placeholder="链接名称，不要加路径符" />
+                            <button type="submit" class="btn btn-primary">添加</button>
+
+                        </div>
+                    </form>
+                </div>
+                <hr />
+                @* list menu *@
+
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>名称</th>
+                            <th>链接</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Rank</td>
+                                <td>@item.Name</td>
+                                <td>@item.Url</td>
+                                <td>
+                                    <a class="btn btn-sm btn-danger"  asp-action="DelNav" asp-route-id="@item.ModulesId">删</a>
+                                    <a class="btn btn-sm btn-primary">编</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>

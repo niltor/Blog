@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAuoeQEih0dEqQ0gaRzL1fgwAAAAACAAAAAAAQZgAAAAEAACAAAAArMDrzvTgVG4Q3aZc5EJhlnH5q3FtLbxA/s5nrAJNpfwAAAAAOgAAAAAIAACAAAAAOU6b+pOV4iE+M9/6tz0Q+eNE6iIeU7Rd3+1rxCBC3aYAAAADb2Xa0SzfNxi/O8YYpCzUV17BqaFU0Y3Sa66nCDgb0whDAVkzRSJgVIwVuG79tBOmZZi+bgD55mh3uXESKq+LS5cGRKFEQ96EStobi0Z5JiL1a0sjluQr5nhX+hUAc4NrgveIyKkd/3mHYWIP8WSNwK3yYU6Z20oICVplwwgACbkAAAABGx4PYW68HaM2uhPkZPdSXf17kWOQxxMN2JMSCXMxmXEiWDBzrXm4CChrSDlGi3B62lbzfnwlTY4QVYG3SXrHl</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:ugppub.database.windows.net,1433;Initial Catalog=geeker.tech;User Id=niltor@ugppub.database.windows.net;Password=n0th1ngisNULL;</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EfMigrations Include="OpentoTop.Data.ApplicationDbContext">
+      <Value>Data Source=tcp:ugppub.database.windows.net,1433;Initial Catalog=geeker.tech;User Id=niltor@ugppub.database.windows.net;Password=n0th1ngisNULL;</Value>
+    </EfMigrations>
+  </ItemGroup>
+</Project>

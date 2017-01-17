@@ -1,0 +1,41 @@
+﻿@{
+	ViewData["Title"] = "问答管理";
+}
+
+<div class="container">
+	<br />
+	<div class="col-md-2">
+	@Html.Partial("_IssueNav")
+	</div>
+	<div class="col-md-9">
+		<form class="form-inline well well-sm">
+			<div class="form-group">
+				<label class="control-label">
+				添加模块：
+				</label>
+				<input type="text" value="" class="form-control" 
+				placeholder="模块名称"/>
+
+				<button class="btn btn-primary" id="addIssueModule">添加</button>
+			</div>
+		</form>
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>排序</th>
+					<th>名称</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>
+						<button class="btn label label-danger">删</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

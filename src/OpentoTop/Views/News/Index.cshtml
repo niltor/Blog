@@ -1,0 +1,28 @@
+﻿@model IEnumerable<OpentoTop.Models.News>
+@{
+    ViewData["Title"] = "精选资讯";
+}
+
+<div class="row">
+    <div class="col-md-7 col-xs-12">
+        <div class="news-list">
+            @foreach (var item in Model)
+            {
+                <div class="news-row">
+                    <div class="news-title">
+                        <a href="@item.Url" target="_blank">
+                            @item.Title
+                        </a>
+                    </div>
+                    <div class="news-datetime">
+                        @item.DateTime
+                    </div>
+                    <div class="news-description">
+                        @item.Description
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

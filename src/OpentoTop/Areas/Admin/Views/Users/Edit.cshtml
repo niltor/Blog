@@ -1,0 +1,46 @@
+@model OpentoTop.Models.ApplicationUser
+
+@{
+	ViewData["Title"] = "编辑用户";
+}
+
+<div class="container">
+	<form asp-action="Edit" >
+		<div class="form-horizontal col-md-8">
+			<h4>编辑用户</h4>
+			<hr />
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="Id" />
+			<div class="form-group">
+				<label class="col-md-2 control-label">Role</label>
+				<div class="col-md-8">
+					<select class="form-control" name="RoleName" id="RoleName">
+						<option value="RegUser">注册用户</option>
+						<option value="Author">独立作者</option>
+						<option value="Admin">管理员</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">密码</label>
+				<div class="col-md-8">
+					<input type="password" name="PasswordHash" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<input type="submit" value="Save" class="btn btn-warning" />
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="clearfix"></div>
+	<div>
+		<a asp-action="Index">Back to List</a>
+	</div>
+</div>
+
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
